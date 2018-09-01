@@ -62,8 +62,8 @@ with DAG('flow_pandas',
                                  python_callable=download)
     drop_na = PythonOperator(task_id='drop_na',
                                  python_callable=drop_na)
-    replace = PythonOperator(task_id='replace',
-                                 python_callable=replace)
+    replace = PythonOperator(task_id='fill',
+                                 python_callable=fill)
     cast = PythonOperator(task_id='cast',
                                  python_callable=cast)
 
@@ -74,5 +74,5 @@ with DAG('flow_pandas',
 #cast.set_upstream(replace)
 
 dropn.set_upstream(download)
-fill.set_upstream(dropn)
+fill.set_upstream(dropn_na)
 cast.set_upstream(fill)
