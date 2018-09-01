@@ -18,7 +18,7 @@ def convertFloat64():
 
 # create DAG instance
 dag = DAG('firstDAG', default_args={
-  'owner': 'Jaime'
+  'owner': 'Jaime',
   'start_date': datetime(2018, 9, 1)
 })
 
