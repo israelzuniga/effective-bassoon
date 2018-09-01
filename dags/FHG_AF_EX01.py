@@ -56,5 +56,5 @@ with DAG('flow_pandas',
 # Dependencies
 
 drop_na.set_upstream(download)
-fill.set_upstream(drop_na)
+replace.set_upstream(drop_na)
 cast.set_upstream(replace)
