@@ -18,12 +18,20 @@ def drop_na():
     df.dropna(inplace=True)
     df.to_csv('c2k_dropn.csv')
 	
+def dropn():
+    print('2')
+    df = pd.read_csv('c2k_raw.csv', index_col='nr')
+    df.dropna(inplace=True)
+    df.to_csv('c2k_dropn.csv')
+
 def fill():
     print('3')
     df = pd.read_csv('c2k_dropn.csv', index_col='nr')
     df.replace(to_replace='?', value=0, inplace=True)
     df.to_csv('c2k_fill.csv')
-
+	
+	
+	
 def replace():
     print('replace')
     df = pd.read_csv('c2k_dropn.csv', index_col='nr')
@@ -61,6 +69,10 @@ with DAG('flow_pandas',
 
 # Dependencies
 
-drop_na.set_upstream(download)
-replace.set_upstream(drop_na)
-cast.set_upstream(replace)
+#drop_na.set_upstream(download)
+#replace.set_upstream(drop_na)
+#cast.set_upstream(replace)
+
+dropn.set_upstream(download)
+fill.set_upstream(dropn)
+cast.set_upstream(fill)
