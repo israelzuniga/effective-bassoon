@@ -2,6 +2,7 @@ import pandas as pd
 import datetime as dt
 from airflow import DAG
 from airflow.operators.bash_operator import BashOperator
+from airflow.operators.python_operator import PythonOperator
 
 bashCommand = "curl https://archive.ics.uci.edu/ml/machine-learning-databases/00382/c2k_data_comma.csv"
 dataCleaned = None
@@ -18,24 +19,24 @@ def convertFloat64():
   dataConverted = dataFrame.astype('float64')
 
 # create DAG instance
-with DAG('firstDAG', 
-        owner='Jaime',
-        start_date=dt.datetime(2018, 9, 1)
+default_args = {
+    'owner': 'Jaime',
+    'start_date': dt.datetime(2018, 9, 1)
+}
+with DAG('firstDAG',
+         default_args=default_args
         ) as dag:
 
   t1 = BashOperator(
     task_id='download',
-    bash_command=bashCommand,
-    dag=dag)
+    bash_command=bashCommand)
 
-  t2 = bashCommand(
-    task_id='clean data',
-    python_callable=cleanData,
-    dag=dag)
+  t2 = PythonOperator(
+    task_id='cleanedData',
+    python_callable=cleanData)
 
-  t3 = bashCommand(
-    task_id='convert float64',
-    python_callable=convertFloat64,
-    dag=dag)
+  t3 = PythonOperator(
+    task_id='convertToFloat64',
+    python_callable=convertFloat64)
 
 t1 >> t2 >> t3
