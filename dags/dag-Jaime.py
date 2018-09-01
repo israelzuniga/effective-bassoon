@@ -12,29 +12,29 @@ def cleanData():
   dataCleaned = c.replace('?', 0)
 
 def convertFloat64():
-    t = pd.read_csv('c2k_data_comma.csv')
+  t = pd.read_csv('c2k_data_comma.csv')
   dataFrame = pd.DataFrame(t)
   dataConverted = dataFrame.astype('float64')
 
 # create DAG instance
 dag = DAG('firstDAG', default_args={
-    'owner': 'Jaime'
-    'start_date': datetime(2018, 9, 1)
+  'owner': 'Jaime'
+  'start_date': datetime(2018, 9, 1)
 })
 
 t1 = BashOperator(
-    task_id='download',
-    bash_command=bashCommand,
-    dag=dag)
+  task_id='download',
+  bash_command=bashCommand,
+  dag=dag)
 
 t2 = bashCommand(
-    task_id='clean data',
-    python_callable=cleanData,
-    dag=dag)
+  task_id='clean data',
+  python_callable=cleanData,
+  dag=dag)
 
 t3 = bashCommand(
-    task_id='convert float64',
-    python_callable=convertFloat64,
-    dag=dag)
+  task_id='convert float64',
+  python_callable=convertFloat64,
+  dag=dag)
 
 t1 >> t2 >> t3
