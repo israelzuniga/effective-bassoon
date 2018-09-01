@@ -35,12 +35,12 @@ default_args = {
     'owner': 'Marianna P',
     'start_date': dt.datetime(2018, 9, 1),
     'retries': 1,
-    'retry_delay': dt.timedelta(minutes=5),
+    'retry_delay': dt.timedelta(minutes=1),
 }
 
 with DAG('flow_pandas',
          default_args=default_args,
-         schedule_interval='*/10 * * * *',
+         schedule_interval='*/5 * * * *',
          ) as dag:
 
     download = PythonOperator(task_id='download',
