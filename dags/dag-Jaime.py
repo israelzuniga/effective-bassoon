@@ -1,5 +1,5 @@
 import pandas as pd
-import datetime
+import datetime as dt
 from airflow import DAG
 from airflow.operators.bash_operator import BashOperator
 
@@ -18,24 +18,24 @@ def convertFloat64():
   dataConverted = dataFrame.astype('float64')
 
 # create DAG instance
-dag = DAG('firstDAG', default_args={
-  'owner': 'Jaime',
-  'start_date': datetime(2018, 9, 1)
-})
+with DAG('firstDAG', 
+        owner='Jaime',
+        start_date=dt.datetime(2018, 9, 1)
+        ) as dag:
 
-t1 = BashOperator(
-  task_id='download',
-  bash_command=bashCommand,
-  dag=dag)
+  t1 = BashOperator(
+    task_id='download',
+    bash_command=bashCommand,
+    dag=dag)
 
-t2 = bashCommand(
-  task_id='clean data',
-  python_callable=cleanData,
-  dag=dag)
+  t2 = bashCommand(
+    task_id='clean data',
+    python_callable=cleanData,
+    dag=dag)
 
-t3 = bashCommand(
-  task_id='convert float64',
-  python_callable=convertFloat64,
-  dag=dag)
+  t3 = bashCommand(
+    task_id='convert float64',
+    python_callable=convertFloat64,
+    dag=dag)
 
 t1 >> t2 >> t3
