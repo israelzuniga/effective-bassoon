@@ -17,6 +17,12 @@ def drop_na():
     df = pd.read_csv('c2k_raw.csv', index_col='nr')
     df.dropna(inplace=True)
     df.to_csv('c2k_dropn.csv')
+	
+def fill():
+    print('3')
+    df = pd.read_csv('c2k_dropn.csv', index_col='nr')
+    df.replace(to_replace='?', value=0, inplace=True)
+    df.to_csv('c2k_fill.csv')
 
 def replace():
     print('replace')
