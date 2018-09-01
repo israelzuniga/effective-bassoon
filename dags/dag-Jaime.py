@@ -2,9 +2,6 @@ import pandas as pd
 from airflow import DAG
 from airflow.operators.bash_operator import BashOperator
 
-#def getData():
- # return pd.read_csv("https://archive.ics.uci.edu/ml/machine-learning-databases/00382/c2k_data_comma.csv")
-
 bashCommand = "curl https://archive.ics.uci.edu/ml/machine-learning-databases/00382/c2k_data_comma.csv"
 dataCleaned = null
 dataConverted = null
