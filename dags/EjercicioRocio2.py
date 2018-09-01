@@ -38,7 +38,7 @@ default_args = {
     'retry_delay': dt.timedelta(minutes=4),
 }
 
-with DAG('Ejercicio Rocio Alvarez',
+with DAG('ejercicio_rocio_alvarez',
          default_args=default_args,
          schedule_interval='*/10 * * * *',
          ) as dag:
