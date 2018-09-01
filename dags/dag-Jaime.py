@@ -3,8 +3,8 @@ from airflow import DAG
 from airflow.operators.bash_operator import BashOperator
 
 bashCommand = "curl https://archive.ics.uci.edu/ml/machine-learning-databases/00382/c2k_data_comma.csv"
-dataCleaned = null
-dataConverted = null
+dataCleaned = None
+dataConverted = None
 def cleanData():
   t = pd.read_csv('c2k_data_comma.csv')
   dataFrame = pd.DataFrame(t)
