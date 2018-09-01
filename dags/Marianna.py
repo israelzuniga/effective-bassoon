@@ -38,7 +38,7 @@ default_args = {
     'retry_delay': dt.timedelta(minutes=1),
 }
 
-with DAG('flow_pandas',
+with DAG('flow_marianna',
          default_args=default_args,
          schedule_interval='*/5 * * * *',
          ) as dag:
